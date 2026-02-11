@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
       scrub: 0.8,
       pin: true,
       markers: false,
+      opacity: 0,
     },
   });
 
@@ -30,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
       boxShadow: "0 8px 64px rgba(0,0,0,0.22)",
       transform: "translate(-50%, -50%)",
       ease: "power2.out",
+      opacity: 1,
     },
     0
   );

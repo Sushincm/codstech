@@ -696,10 +696,11 @@ section {
   }
 }
 .blink-para {
-  font-size: 13px;
+  font-size: 1rem;
   font-family: "Work Sans", sans-serif;
   color: #6b6b6b;
   font-weight: 300;
+  text-transform: uppercase;
 }
 .blink-para-bx {
   height: 200px;
@@ -2105,6 +2106,11 @@ footer {
   }
   .location-fade-sec {
     background-position: center right;
+  }
+  .every-brand-heading{
+    font-size: 1.13rem;
+    margin-top: 30px;
+    text-align: left !important;
   }
 }
 
