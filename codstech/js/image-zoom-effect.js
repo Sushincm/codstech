@@ -1,51 +1,35 @@
 document.addEventListener("DOMContentLoaded", () => {
   gsap.registerPlugin(ScrollTrigger);
   const expandBg = document.querySelector(".expand-bg-img");
-  const imageGap = document.querySelector(".image-gap");
   const toSide = document.querySelector(".to-side");
   const globalSide = document.querySelector(".global-side");
-  const toGlobalRow = document.querySelector(".to-global-row");
   const bgImg = expandBg.querySelector(".nitex-bg-img");
   const heading = document.querySelector(".nitex-hero-heading");
 
   let tl = gsap.timeline({
     scrollTrigger: {
-      trigger: ".nitex-hero-section",
+      trigger: ".nitex-hero-wrapper",
       start: "top top",
-      end: "bottom top",
-      scrub: 0.8,
-      pin: true,
+      end: "bottom bottom", // triggers based entirely on the wrapper's scrolling distance
+      scrub: 1, // smooth easing scrub, purely for animation (wix-like)
       markers: false,
-      opacity: 0,
     },
   });
-
-  tl.to(
-    expandBg,
-    {
-      left: "50%",
-      top: "50%",
-      width: "100vw",
-      height: "100vh",
-      borderRadius: "0vw",
-      boxShadow: "0 8px 64px rgba(0,0,0,0.22)",
-      transform: "translate(-50%, -50%)",
-      ease: "power2.out",
-      opacity: 1,
-    },
-    0
-  );
-
-  tl.to(imageGap, { width: "0em", ease: "power2.out" }, 0.1);
-  tl.to(toGlobalRow, { gap: 0, ease: "power2.out" }, 0.1);
-
+  // Normalize starting state, avoiding CSS matrix parsing issues
+  // Scale the container up, move to perfect center
   tl.fromTo(
-    toSide,
-    { x: "-2lh", marginRight: "45px" },
-    { x: "0lh", marginRight: "0px", ease: "power2.out" },
-    0.1
+    expandBg,
+    { xPercent: -50, yPercent: -50, x: 0, y: 0, scale: 0.03, opacity: 1 },
+    { scale: 1.01, ease: "power2.out" },
+    0,
   );
-  tl.fromTo(globalSide, { x: "2lh" }, { x: "0lh", ease: "power2.out" }, 0.1);
+
+  // Scale the inner image down inversely to keep it sharp
+  tl.fromTo(bgImg, { scale: 33.33 }, { scale: 1, ease: "power2.out" }, 0);
+
+  // Move the words purely using transform (x)
+  tl.fromTo(toSide, { x: -50 }, { x: 0, ease: "power2.out" }, 0.1);
+  tl.fromTo(globalSide, { x: 50 }, { x: 0, ease: "power2.out" }, 0.1);
 
   tl.to(heading, { color: "#fff", ease: "power2.inOut" }, 0.15);
 });

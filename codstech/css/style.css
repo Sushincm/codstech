@@ -769,34 +769,43 @@ section {
 }
 
 /* zoom effect image */
-.nitex-hero-section {
+.nitex-hero-wrapper {
   position: relative;
+  height: 250vh; /* Gives the scrolling space equivalent to the GSAP pin scrub */
+  background: #000;
+}
+
+.nitex-hero-section {
+  position: sticky;
+  top: 0;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fff;
+  background: #000; /* Prevent white subpixel lines */
   overflow: hidden;
 }
 .expand-bg-img {
   position: absolute;
-  left: 44.5%;
-  top: 49%;
-  width: 40px;
-  height: 40px;
-  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+  width: 100%; /* Use % to prevent vw scrollbar layout recalculation jumps */
+  height: 100%; /* Avoid vh resizing glitches */
+  transform: translate(-50%, -50%) scale(0.03); /* strictly centered */
   z-index: 5;
   pointer-events: none;
-  transition: none;
+  overflow: hidden;
+  will-change: transform, opacity;
+  border-radius: 0;
 }
 
 .nitex-bg-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 0;
-  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.18);
   display: block;
+  transform: scale(33.33); /* counter zoom so image looks stable */
+  will-change: transform;
 }
 .custom-contact-box svg {
   height: 50%;
@@ -822,15 +831,19 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2.5em;
+  gap: 0; /* Changed to not use gap, we'll use transform */
 }
 
 .image-gap {
-  width: 2.5em;
-  display: inline-block;
+  display: none; /* We don't need this element if we use translate */
 }
 .to-side {
-  margin-right: 50px;
+  display: inline-block;
+  will-change: transform;
+}
+.global-side {
+  display: inline-block;
+  will-change: transform;
 }
 .nitex-hero-section video {
   position: absolute;
@@ -1275,13 +1288,13 @@ footer {
 }
 
 /* Contact us Page */
-.form-submit-btn{
+.form-submit-btn {
   background-color: var(--primar-color);
   color: #fff;
 }
-.form-submit-btn:hover{
+.form-submit-btn:hover {
   background-color: #000;
-    color: #fff;
+  color: #fff;
 }
 .contact-sec {
   background: #fff;
@@ -1457,10 +1470,10 @@ footer {
   }
 }
 @media (max-width: 991.98px) {
-  .db__top-row{
+  .db__top-row {
     grid-row-gap: 1rem !important;
   }
-  .p-l{
+  .p-l {
     font-size: 1rem;
     line-height: 1.5;
   }
@@ -2114,7 +2127,7 @@ footer {
   .location-fade-sec {
     background-position: center right;
   }
-  .every-brand-heading{
+  .every-brand-heading {
     font-size: 1.13rem;
     margin-top: 30px;
     text-align: left !important;
